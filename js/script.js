@@ -25,14 +25,18 @@ function loadVacancies() {
         if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
             
             result = JSON.parse(this.responseText);
-                 
-            for (let i = 0; i < result.data.length; i++) {
-                vacancies.innerHTML += '<div class="vacancie-post">'+ 
-                                            '<h3>' + result.data[i].title + 
-                                            '<span>'+ result.data[i].location + '-' + result.data[i].type +'</span>' + 
-                                            '</h3>' + 
-                                        '</div>';
-                
+
+            if (result.status === 'error') {
+                vacancies.innerHTML = result.data; 
+            } else {
+                for (let i = 0; i < result.data.length; i++) {
+                    vacancies.innerHTML += '<div class="vacancie-post">'+ 
+                                                '<h3>' + result.data[i].title + 
+                                                '<span>'+ result.data[i].location + '-' + result.data[i].type +'</span>' + 
+                                                '</h3>' + 
+                                            '</div>';
+                    
+                }
             }
 
         }
